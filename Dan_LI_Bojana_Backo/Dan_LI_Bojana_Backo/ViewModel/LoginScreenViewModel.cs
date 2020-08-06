@@ -1,4 +1,6 @@
 ﻿using Dan_LI_Bojana_Backo.Command;
+using Dan_LI_Bojana_Backo.HelperMetods;
+using Dan_LI_Bojana_Backo.Services;
 using Dan_LI_Bojana_Backo.View;
 using System;
 using System.Windows;
@@ -10,31 +12,29 @@ namespace Dan_LI_Bojana_Backo.ViewModel
     class LoginScreenViewModel : ViewModelBase
     {
         LoginScreen loginScreen;
-        //PasswordValidation passwordValidation;
-        //Service service;
+        ServiceDoctor serviceDoctor;
 
         public LoginScreenViewModel(LoginScreen loginScreenOpen)
         {
             loginScreen = loginScreenOpen;
 
-            //passwordValidation = new PasswordValidation();
-            //user = new tblUser();
-            //service = new Service();
+            Doctor = new tblDoctor();
+            serviceDoctor = new ServiceDoctor();
         }
 
-        //private tblUser user;
-        //public tblUser User
-        //{
-        //    get
-        //    {
-        //        return user;
-        //    }
-        //    set
-        //    {
-        //        user = value;
-        //        OnPropertyChanged("User");
-        //    }
-        //}
+        private tblDoctor doctor;
+        public tblDoctor Doctor
+        {
+            get
+            {
+                return doctor;
+            }
+            set
+            {
+                doctor = value;
+                OnPropertyChanged("Doctor");
+            }
+        }
 
         private string userName;
         public string UserName
@@ -86,16 +86,19 @@ namespace Dan_LI_Bojana_Backo.ViewModel
             {
                 string password = (obj as PasswordBox).Password;
 
-                if (UserName.Equals("WPFMaster") && password.Equals("WPFAccess"))
+                if (serviceDoctor.IsUser(UserName))
                 {
-                    //string hash = SecurePasswordHasher.Hash(password);
-                    //User.Username = UserName;
-                    //User.Password = hash;
-                    //service.AddUser(User);
-
-                    MainWindow master = new MainWindow();
-                    loginScreen.Close();
-                    master.Show();
+                    Doctor = serviceDoctor.FindDoctor(UserName);
+                    if (SecurePasswordHasher.Verify(password, Doctor.UserPassword))
+                    {
+                        DoctorWindow doctorWindow = new DoctorWindow();
+                        loginScreen.Close();
+                        doctorWindow.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong password!");
+                    }
                 }
                 else
                 {

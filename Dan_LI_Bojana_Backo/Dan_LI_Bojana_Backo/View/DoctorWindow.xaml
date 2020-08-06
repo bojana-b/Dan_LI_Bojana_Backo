@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dan_LI_Bojana_Backo.View"
         mc:Ignorable="d"
-        Title="DoctorWindow" Height="450" Width="800">
+        Title="" Height="400" Width="400" FontSize="14" Background="RosyBrown">
     <Grid>
-        
+        <DockPanel>
+            <TextBlock Text="WELCOME" FontSize="30"></TextBlock>
+        </DockPanel>
     </Grid>
 </Window>
