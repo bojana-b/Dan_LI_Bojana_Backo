@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dan_LI_Bojana_Backo.View"
         mc:Ignorable="d"
-        Title="Login" Height="319" Width="300" FontSize="14" Background="RosyBrown">
+        Title="Login" Height="370" Width="300" FontSize="14" Background="RosyBrown">
     <Border Background="AntiqueWhite" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Login" Foreground="Gray" FontSize="25" HorizontalAlignment="Center"/>
@@ -15,6 +15,8 @@
             <Label Content="Password" Foreground="Gray"/>
             <PasswordBox Name="txtPassword" Background="RosyBrown" Foreground="White" FontSize="18"/>
             <Button Name="btnSubmit" Command="{Binding Submit}" CommandParameter="{Binding ElementName=txtPassword}" Content="Submit" Margin="60 10" Background="RosyBrown" Foreground="White"/>
+            <Separator></Separator>
+            <Button Name="btnSignup" Command="{Binding SignUp}" Content="Signup" Margin="60 10" Background="RosyBrown" Foreground="White"/>
         </StackPanel>
     </Border>
 </Window>

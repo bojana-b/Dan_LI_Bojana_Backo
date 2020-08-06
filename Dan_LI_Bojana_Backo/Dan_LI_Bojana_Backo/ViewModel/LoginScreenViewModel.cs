@@ -64,7 +64,8 @@ namespace Dan_LI_Bojana_Backo.ViewModel
                 return string.Empty;
             }
         }
-
+        #region Commands
+        // Submit button
         private ICommand submit;
         public ICommand Submit
         {
@@ -110,5 +111,36 @@ namespace Dan_LI_Bojana_Backo.ViewModel
         {
             return true;
         }
+        // Signup button
+        private ICommand signUp;
+        public ICommand SignUp
+        {
+            get
+            {
+                if(signUp == null)
+                {
+                    signUp = new RelayCommand(param => SignupExecute(), param => CanCreateSigunExecute());
+                }
+                return signUp;
+            }
+        }
+        private void SignupExecute()
+        {
+            try
+            {
+                Signup signup = new Signup();
+                loginScreen.Close();
+                signup.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanCreateSigunExecute()
+        {
+            return true;
+        }
+        #endregion
     }
 }

@@ -35,8 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +64,51 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelperMetods\JMBGValidation.cs" />
+    <Compile Include="HelperMetods\SecurePasswordHasher.cs" />
+    <Compile Include="ModelMedicalDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMedicalDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelMedicalDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMedicalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelMedicalDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelMedicalDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ServiceDoctor.cs" />
+    <Compile Include="tblDoctor.cs">
+      <DependentUpon>ModelMedicalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPatient.cs">
+      <DependentUpon>ModelMedicalDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DoctorRegistrationViewModel.cs" />
+    <Compile Include="ViewModel\DoctorWindowViewModel.cs" />
+    <Compile Include="ViewModel\LoginScreenViewModel.cs" />
+    <Compile Include="ViewModel\PatientWindowViewModel.cs" />
+    <Compile Include="ViewModel\SignupViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\DoctorRegistration.xaml.cs">
+      <DependentUpon>DoctorRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DoctorWindow.xaml.cs">
+      <DependentUpon>DoctorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatientWindow.xaml.cs">
+      <DependentUpon>PatientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Signup.xaml.cs">
+      <DependentUpon>Signup.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,10 +117,31 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DoctorRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DoctorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Signup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +161,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ModelMedicalDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelMedicalDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelMedicalDB.edmx.diagram">
+      <DependentUpon>ModelMedicalDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +176,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ModelMedicalDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelMedicalDB.Context.cs</LastGenOutput>
+      <DependentUpon>ModelMedicalDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelMedicalDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelMedicalDB.edmx</DependentUpon>
+      <LastGenOutput>ModelMedicalDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

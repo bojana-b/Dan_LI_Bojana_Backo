@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MedicalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblDoctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="JMBG" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="BankAccount" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="JMBG" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="HealthIsuranceNumber" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblPatien__Docto__145C0A3F">
+          <End Role="tblDoctor" Type="Self.tblDoctor" Multiplicity="1" />
+          <End Role="tblPatient" Type="Self.tblPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDoctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="tblPatient">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MedicalDBModelStoreContainer">
+          <EntitySet Name="tblDoctor" EntityType="Self.tblDoctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPatient" EntityType="Self.tblPatient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblPatien__Docto__145C0A3F" Association="Self.FK__tblPatien__Docto__145C0A3F">
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+            <End Role="tblPatient" EntitySet="tblPatient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MedicalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblDoctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblPatients" Relationship="Self.FK__tblPatien__Docto__145C0A3F" FromRole="tblDoctor" ToRole="tblPatient" />
+        </EntityType>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HealthIsuranceNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblDoctor" Relationship="Self.FK__tblPatien__Docto__145C0A3F" FromRole="tblPatient" ToRole="tblDoctor" />
+        </EntityType>
+        <Association Name="FK__tblPatien__Docto__145C0A3F">
+          <End Role="tblDoctor" Type="Self.tblDoctor" Multiplicity="1" />
+          <End Role="tblPatient" Type="Self.tblPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDoctor">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="tblPatient">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MedicalDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblDoctors" EntityType="Self.tblDoctor" />
+          <EntitySet Name="tblPatients" EntityType="Self.tblPatient" />
+          <AssociationSet Name="FK__tblPatien__Docto__145C0A3F" Association="Self.FK__tblPatien__Docto__145C0A3F">
+            <End Role="tblDoctor" EntitySet="tblDoctors" />
+            <End Role="tblPatient" EntitySet="tblPatients" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MedicalDBModelStoreContainer" CdmEntityContainer="MedicalDBEntities">
+          <EntitySetMapping Name="tblDoctors">
+            <EntityTypeMapping TypeName="MedicalDBModel.tblDoctor">
+              <MappingFragment StoreEntitySet="tblDoctor">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPatients">
+            <EntityTypeMapping TypeName="MedicalDBModel.tblPatient">
+              <MappingFragment StoreEntitySet="tblPatient">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="HealthIsuranceNumber" ColumnName="HealthIsuranceNumber" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
