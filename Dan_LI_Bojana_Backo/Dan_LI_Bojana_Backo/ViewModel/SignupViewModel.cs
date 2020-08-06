@@ -67,9 +67,9 @@ namespace Dan_LI_Bojana_Backo.ViewModel
         {
             try
             {
-                PatientWindow patientWindow = new PatientWindow();
+                PatientRegistration patientRegistration = new PatientRegistration();
                 signup.Close();
-                patientWindow.ShowDialog();
+                patientRegistration.ShowDialog();
             }
             catch (Exception ex)
             {

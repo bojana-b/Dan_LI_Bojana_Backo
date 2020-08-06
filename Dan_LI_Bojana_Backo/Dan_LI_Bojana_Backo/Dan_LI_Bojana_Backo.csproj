@@ -82,6 +82,7 @@
       <DependentUpon>ModelMedicalDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Services\ServiceDoctor.cs" />
+    <Compile Include="Services\ServicePatient.cs" />
     <Compile Include="tblDoctor.cs">
       <DependentUpon>ModelMedicalDB.tt</DependentUpon>
     </Compile>
@@ -91,6 +92,7 @@
     <Compile Include="ViewModel\DoctorRegistrationViewModel.cs" />
     <Compile Include="ViewModel\DoctorWindowViewModel.cs" />
     <Compile Include="ViewModel\LoginScreenViewModel.cs" />
+    <Compile Include="ViewModel\PatientRegistrationViewModel.cs" />
     <Compile Include="ViewModel\PatientWindowViewModel.cs" />
     <Compile Include="ViewModel\SignupViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -102,6 +104,9 @@
     </Compile>
     <Compile Include="View\LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PatientRegistration.xaml.cs">
+      <DependentUpon>PatientRegistration.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PatientWindow.xaml.cs">
       <DependentUpon>PatientWindow.xaml</DependentUpon>
@@ -131,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PatientRegistration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

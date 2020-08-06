@@ -1,3 +1,8 @@
+IF OBJECT_ID('tblPatient', 'U') IS NOT NULL DROP TABLE tblPatient;
+IF OBJECT_ID('tblDoctor', 'U') IS NOT NULL DROP TABLE tblDoctor;
+
+-- Checks if the database already exists.
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'MedicalDB')
 CREATE DATABASE MedicalDB;
 GO
 
@@ -21,5 +26,5 @@ CREATE TABLE tblPatient(
 	HealthIsuranceNumber nvarchar(40) NOT NULL,
 	Username nvarchar(30) UNIQUE NOT NULL,
 	UserPassword nvarchar(200) NOT NULL,
-	DoctorID INT FOREIGN KEY REFERENCES tblDoctor(DoctorID) NOT NULL
-)
+	DoctorID INT FOREIGN KEY REFERENCES tblDoctor(DoctorID) 
+);
