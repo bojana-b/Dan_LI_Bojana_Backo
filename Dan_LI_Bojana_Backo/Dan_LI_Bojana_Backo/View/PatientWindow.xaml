@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dan_LI_Bojana_Backo.View"
         mc:Ignorable="d"
-        Title="PatientWindow" Height="450" Width="800">
+        Title="Patient" Background="AntiqueWhite" Height="380" Width="400" FontSize="14">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1" Height="auto" Width="auto">
+            <DataGrid x:Name="DataGridResults" ItemsSource="{Binding DoctorList, UpdateSourceTrigger=PropertyChanged}" HeadersVisibility="Column" IsReadOnly="True"
+                      AutoGenerateColumns="False" HorizontalGridLinesBrush="Black" BorderBrush="Black" Foreground="Black">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Doctor Name" Binding="{Binding FirstName}"/>
+                    <DataGridTextColumn Header="Doctor Lastname" Binding="{Binding LastName}"/>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="Choose" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.HeaderTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="archiveBtn" Content="Pick" 
+                                            Command="{Binding DataContext.Pick, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},
+                                        UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3" Height="auto" Width="auto">
+            <Button Margin="80, 10" Command="{Binding Cancel}">Cancel</Button>
+        </Grid>
     </Grid>
 </Window>

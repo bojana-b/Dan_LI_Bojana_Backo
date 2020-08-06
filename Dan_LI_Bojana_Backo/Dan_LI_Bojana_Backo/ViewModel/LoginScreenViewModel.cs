@@ -13,6 +13,7 @@ namespace Dan_LI_Bojana_Backo.ViewModel
     {
         LoginScreen loginScreen;
         ServiceDoctor serviceDoctor;
+        ServicePatient servicePatient;
 
         public LoginScreenViewModel(LoginScreen loginScreenOpen)
         {
@@ -20,6 +21,7 @@ namespace Dan_LI_Bojana_Backo.ViewModel
 
             Doctor = new tblDoctor();
             serviceDoctor = new ServiceDoctor();
+            servicePatient = new ServicePatient();
         }
 
         private tblDoctor doctor;
@@ -33,6 +35,20 @@ namespace Dan_LI_Bojana_Backo.ViewModel
             {
                 doctor = value;
                 OnPropertyChanged("Doctor");
+            }
+        }
+
+        private tblPatient patient;
+        public tblPatient Patient
+        {
+            get
+            {
+                return patient;
+            }
+            set
+            {
+                patient = value;
+                OnPropertyChanged("Patient");
             }
         }
 
@@ -94,6 +110,20 @@ namespace Dan_LI_Bojana_Backo.ViewModel
                         DoctorWindow doctorWindow = new DoctorWindow();
                         loginScreen.Close();
                         doctorWindow.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong password!");
+                    }
+                }
+                else if (servicePatient.IsUser(UserName))
+                {
+                    Patient = servicePatient.FindPatient(UserName);
+                    if (SecurePasswordHasher.Verify(password, Patient.UserPassword))
+                    {
+                        PatientWindow patientWindow = new PatientWindow();
+                        loginScreen.Close();
+                        patientWindow.Show();
                     }
                     else
                     {

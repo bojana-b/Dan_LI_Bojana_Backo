@@ -24,7 +24,7 @@ namespace Dan_LI_Bojana_Backo.Services
                     newPatient.HealthIsuranceNumber = patient.HealthIsuranceNumber;
                     newPatient.Username = patient.Username;
                     newPatient.UserPassword = SecurePasswordHasher.Hash(patient.UserPassword);
-                    //newPatient.DoctorID = 0;
+                    //newPatient.DoctorID = 1;
 
                     context.tblPatients.Add(newPatient);
                     context.SaveChanges();
@@ -34,6 +34,48 @@ namespace Dan_LI_Bojana_Backo.Services
             catch (Exception ex)
             {
                 Debug.WriteLine("Exception" + ex.Message.ToString());
+            }
+        }
+        // Methot to check if patient username exists in database
+        public bool IsUser(string username)
+        {
+            try
+            {
+                using (MedicalDBEntities context = new MedicalDBEntities())
+                {
+                    tblPatient patient = (from e in context.tblPatients where e.Username == username select e).First();
+
+                    if (patient == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception" + ex.Message.ToString());
+                return false;
+            }
+        }
+
+        public tblPatient FindPatient(string username)
+        {
+            try
+            {
+                using (MedicalDBEntities context = new MedicalDBEntities())
+                {
+                    tblPatient patient = (from e in context.tblPatients where e.Username == username select e).First();
+                    return patient;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
             }
         }
     }

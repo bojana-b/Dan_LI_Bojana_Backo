@@ -37,7 +37,7 @@ namespace Dan_LI_Bojana_Backo.Services
             }
         }
         // Method that reads all doctors from database
-        public List<tblDoctor> GetAllOrders()
+        public List<tblDoctor> GetAllDoctors()
         {
             try
             {
